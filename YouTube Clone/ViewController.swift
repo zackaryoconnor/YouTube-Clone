@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import SwiftUI
 
-class ViewController: UIViewController {
+class ViewController: CompositionalController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
     }
 
 
