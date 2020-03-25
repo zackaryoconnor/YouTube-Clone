@@ -19,8 +19,8 @@ public func baseNavController(viewController: UIViewController, title: String, s
     searchController.definesPresentationContext = true
     
 //    viewController.navigationItem.searchController = searchController
-    viewController.navigationItem.title = title
-    viewController.view.backgroundColor = .systemBackground
+//    viewController.navigationItem.title = title
+//    viewController.view.backgroundColor = .systemBackground
         
     return navigationController
 }

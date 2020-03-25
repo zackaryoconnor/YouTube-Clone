@@ -23,7 +23,25 @@ class SubscriptionsController: UICollectionViewController {
         collectionView.register(WatchTypeCategory.self, forCellWithReuseIdentifier: watchTypeCategoryCellId)
         collectionView.register(VideoCell.self, forCellWithReuseIdentifier: videoCellId)
         
-        navigationItem.title = "YouTube"
+        setupNavBar()
+    }
+    
+    
+    private func setupNavBar() {
+        let youtubeLogo = UIBarButtonItem(title: "YouTube", style: .plain, target: self, action: nil)
+        navigationItem.leftBarButtonItem = youtubeLogo
+        
+        let mirrorButton = UIBarButtonItem(title: "M", style: .plain, target: self, action: nil)
+        let recordButton = UIBarButtonItem(title: "R", style: .plain, target: self, action: nil)
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: nil)
+        let profileButton = UIBarButtonItem(title: "P", style: .plain, target: self, action: nil)
+        
+        navigationItem.setRightBarButtonItems([profileButton,
+                                               searchButton,
+                                               recordButton,
+                                               mirrorButton], animated: true)
+        
+        navigationController?.navigationBar.tintColor = .white
     }
     
     
@@ -35,14 +53,15 @@ class SubscriptionsController: UICollectionViewController {
             if sectionNumber == 0 {
                 let item = NSCollectionLayoutSupplementaryItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
                 item.contentInsets = NSDirectionalEdgeInsets(top: itemInsets,
-                                                             leading: itemInsets,
+                                                             leading: 16,
                                                              bottom: itemInsets,
-                                                             trailing: itemInsets)
+                                                             trailing: 16)
                 
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .absolute(86), heightDimension: .absolute(116)), subitems: [item])
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .absolute(80), heightDimension: .absolute(116)), subitems: [item])
                 
                 let section = NSCollectionLayoutSection(group: group)
                 section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
+                section.interGroupSpacing = -4
                 
                 return section
                 
@@ -76,8 +95,6 @@ class SubscriptionsController: UICollectionViewController {
                 
                 return section
             }
-            
-            
         }
         
         super.init(collectionViewLayout: layout)
@@ -100,7 +117,7 @@ extension SubscriptionsController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
-            return 2
+            return 6
             
         } else if section == 1 {
             return watchTypeCategoryArray.count
@@ -112,7 +129,6 @@ extension SubscriptionsController {
     
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: subscribedAccountsFeedCellId, for: indexPath) as! SubscribedAccountsFeed
             return cell
